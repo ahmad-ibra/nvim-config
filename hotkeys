@@ -1,0 +1,60 @@
+HOTKEYS
+-------
+
+remap.lua:
+    leader = SPACE
+    (n) leader  h  h  h                 : Show hotkeys
+    (n) leader  p  v                    : Back to file structure
+    (v) J                               : Shift line down
+    (v) K                               : Shift line up
+    (x) leader  p                       : Paste and send to black hole
+    (n,v) leader  y                     : Yank to clipboard
+    (n) leader  Y                       : Yank to clipboard
+    (n) leader  d                       : Delete and send to black hole
+    (n) leader  f                       : Format
+    (n) leader  s                       : Replace all of cur word in file
+    (n) leader  x                       : Make file executable (chmod +x)
+    (n) up                              : Change pane up
+    (n) down                            : Change pane down
+    (n) left                            : Change pane left
+    (n) right                           : Change pane right
+    (n) leader  leader  v               : Split pane vertical
+    (n) leader  leader  h               : Split pane horizontal
+    (n) leader  -                       : Shrink pane
+    (n) leader  =                       : Expand pane
+    (n) leader  TAB                     : Next buffer
+    (n) leader  TAB  TAB                : Previous buffer
+    (n) leader  v                       : Visual mode in word
+    
+nerdtree.lua:
+    (n) leader  t                       : Toggle nerdtree
+
+undotree.lua:
+    (n) leader  u                       : Toggle undotree
+
+harpoon.lua:
+    (n) leader  h  a                    : Add file
+    (n) leader  h  m                    : Toggle quick menu
+    (n) leader  h  n                    : Navigate next
+    (n) leader  h  p                    : Navigate previous
+
+fugitive.lua:
+    (n) leader  g  s                    : Git status
+
+telescope.lua:
+    (n) leader  f  f                    : Find files in directory
+    (n) Ctrl  f                         : Find files in git directory
+    (n) leader  f  s                    : Find string in directory
+
+lsp.lua:
+    (n) g  d                            : Go to definition
+    (n) K                               : Hover
+    (n) leader  v  w  s                 : Worspace symbol
+    (n) leader  v  d                    : Diagnostics open float
+    (n) [  d                            : Diagnostics go to next
+    (n) ]  d                            : Diagnostics go to prev
+    (n) leader  v  c  a                 : Code action
+    (n) leader - v  r  r                : References
+    (n) leader - v  r  n                : Rename
+    (i) Ctrl  h                         : Signature help
+    
