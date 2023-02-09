@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.opt.guicursor = ""
+vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait300-blinkon200-blinkoff150-Cursor/lCursor"
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
