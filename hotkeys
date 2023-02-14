@@ -25,6 +25,7 @@ remap.lua:
     (n) leader  TAB                     : Next buffer
     (n) leader  TAB  TAB                : Previous buffer
     (n) leader  v                       : Visual mode in word
+    (n) leader m d                      : Toggle Mardown Preview
     
 nerdtree.lua:
     (n) leader  t                       : Toggle nerdtree

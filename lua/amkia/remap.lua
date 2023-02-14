@@ -55,3 +55,6 @@ vim.keymap.set("n", "<leader><Tab>", ":bnext<CR>")
 vim.keymap.set("n", "<leader><Tab><Tab>", ":bprevious<CR>")
 
 vim.keymap.set("n", "<leader>v", "viw")
+
+-- Markdown preview
+vim.keymap.set("n", "<leader>md", ":MarkdownPreviewToggle<CR>")
