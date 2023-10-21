@@ -64,7 +64,7 @@ go:
     (n) leader  s  t  j                 : Add struct tags json
     (n) leader  s  t  y                 : Add struct tags yaml
     (n) leader  s  t  x                 : Add struct tags xml
-    (n) leader  d  b                    : Toggle breakpoint
+    (n) leader  d  b                    : Toggle debug breakpoint
     (n) leader  d  g  t                 : Debug go test
     (n) F7                              : Step over
     (n) F8                              : Step into
