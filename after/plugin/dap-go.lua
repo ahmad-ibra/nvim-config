@@ -1,20 +1,14 @@
 require("dap-go").setup()
 
+vim.keymap.set('n', '<leader>dgt', function() -- debug go test
+    require('dap-go').debug_test();
+end)
+
 vim.keymap.set('n', '<leader>db', require 'dap'.toggle_breakpoint)
 vim.keymap.set('n', '<F7>', require 'dap'.step_over)
 vim.keymap.set('n', '<F8>', require 'dap'.step_into)
 vim.keymap.set('n', '<F9>', require 'dap'.step_out)
 vim.keymap.set('n', '<F10>', require 'dap'.continue)
-
-vim.keymap.set('n', '<leader>dus', function() -- open debugging sidebar
-    local widgets = require('dap.ui.widgets');
-    local sidebar = widgets.sidebar(widgets.scopes);
-    sidebar.open();
-end)
-
-vim.keymap.set('n', '<leader>dgt', function() -- debug go test
-    require('dap-go').debug_test();
-end)
 
 -- make breakpoints look nicer
 vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })

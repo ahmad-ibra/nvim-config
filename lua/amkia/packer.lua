@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
+    -- themes
     use { "ellisonleao/gruvbox.nvim" }
     use { "sainnhe/gruvbox-material" }
     use { "sainnhe/everforest" }
@@ -36,6 +37,9 @@ return require('packer').startup(function(use)
     use('mfussenegger/nvim-dap')
     use('leoluz/nvim-dap-go')
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+
+    -- go helpful keymappings
+    use('olexsmir/gopher.nvim') -- will need to manually run :GoInstallDeps to get this working
 
     use {
         'VonHeikemen/lsp-zero.nvim',
