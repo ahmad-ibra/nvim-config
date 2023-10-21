@@ -32,6 +32,11 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     use('preservim/nerdtree')
 
+    -- go debugger
+    use('mfussenegger/nvim-dap')
+    use('leoluz/nvim-dap-go')
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
