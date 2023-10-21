@@ -25,7 +25,7 @@ remap.lua:
     (n) leader  TAB                     : Next buffer
     (n) leader  TAB  TAB                : Previous buffer
     (n) leader  v                       : Visual mode in word
-    (n) leader m d                      : Toggle Mardown Preview
+    (n) leader m d                      : Toggle Markdown Preview
     
 nerdtree.lua:
     (n) leader  t                       : Toggle nerdtree
@@ -59,3 +59,15 @@ lsp.lua:
     (n) leader - v  r  n                : Rename
     (i) Ctrl  h                         : Signature help
     
+go:
+    (n) leader  e  r  r                 : if err != nil block
+    (n) leader  s  t  j                 : Add struct tags json
+    (n) leader  s  t  y                 : Add struct tags yaml
+    (n) leader  s  t  x                 : Add struct tags xml
+    (n) leader  d  b                    : Toggle breakpoint
+    (n) leader  d  g  t                 : Debug go test
+    (n) F7                              : Step over
+    (n) F8                              : Step into
+    (n) F9                              : Step out
+    (n) F10                             : Continue
+
