@@ -16,7 +16,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 ```
 
 ## Setup
-The easiest way to set this up on a new computer is to clone the repo into a personal directory, then create a symlink to the repo in ``.
+The easiest way to set this up on a new computer is to clone the repo into a personal directory, then create a symlink to the repo in `~/.config/`.
 This can be done like this:
 ```
 ln -s /Users/ahmad/Repos/personal/nvim-config ~/.config/nvim

@@ -29,8 +29,15 @@ return require('packer').startup(function(use)
     -- transparency
     use { 'tribela/vim-transparent' } -- ensure iterm2 transparency set to 10 and blur set to 15
 
-    -- airline at bottom
+    -- airline and bufferline
     use { "vim-airline/vim-airline" }
+    use {
+        'akinsho/bufferline.nvim',
+        tag = "*",
+        requires = 'nvim-tree/nvim-web-devicons',
+        config = function() require("bufferline").setup {} end
+
+    }
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
