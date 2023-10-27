@@ -26,6 +26,9 @@ return require('packer').startup(function(use)
     use { "mbbill/vim-seattle" }
     use { "baskerville/bubblegum" }
 
+    -- transparency
+    use { 'tribela/vim-transparent' } -- ensure iterm2 transparency set to 10 and blur set to 15
+
     -- airline at bottom
     use { "vim-airline/vim-airline" }
 
