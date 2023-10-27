@@ -58,3 +58,8 @@ vim.keymap.set("n", "<leader>v", "viw")
 
 -- Markdown preview
 vim.keymap.set("n", "<leader>md", ":MarkdownPreviewToggle<CR>")
+
+-- Buffer commands
+vim.keymap.set("n", "<leader><right>", ":bnext<CR>")
+vim.keymap.set("n", "<leader><left>", ":bprevious<CR>")
+vim.keymap.set("n", "<leader><down>", ":bdelete<CR>")
