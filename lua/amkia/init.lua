@@ -2,7 +2,7 @@ require("amkia.packer")
 require("amkia.set")
 require("amkia.remap")
 
-vim.o.background = "dark"
+--vim.o.background = "dark"
 --vim.cmd([[colorscheme gruvbox]])
 --vim.cmd([[colorscheme gruvbox-material]])
 --vim.cmd([[colorscheme everforest]])

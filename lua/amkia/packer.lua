@@ -26,6 +26,9 @@ return require('packer').startup(function(use)
     use { "mbbill/vim-seattle" }
     use { "baskerville/bubblegum" }
 
+    -- airline at bottom
+    use { "vim-airline/vim-airline" }
+
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use('theprimeagen/harpoon')
