@@ -63,3 +63,10 @@ vim.keymap.set("n", "<leader>md", ":MarkdownPreviewToggle<CR>")
 vim.keymap.set("n", "<leader><right>", ":bnext<CR>")
 vim.keymap.set("n", "<leader><left>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader><down>", ":bdelete<CR>")
+
+-- kinesis remaps
+vim.keymap.set("n", "j", "h")
+vim.keymap.set("n", "k", "j")
+vim.keymap.set("n", "l", "k")
+vim.keymap.set("n", ";", "l")
+vim.keymap.set("n", "h", ";")
