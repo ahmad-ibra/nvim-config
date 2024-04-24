@@ -8,10 +8,11 @@ lsp.ensure_installed({
     'lua_ls',
     'rust_analyzer',
     'gopls',
+    'lua_ls',
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
