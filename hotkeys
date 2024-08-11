@@ -67,10 +67,11 @@ go:
     (n) leader  s  t  j                 : Add struct tags json
     (n) leader  s  t  y                 : Add struct tags yaml
     (n) leader  s  t  x                 : Add struct tags xml
-    (n) leader  d  b                    : Toggle debug breakpoint
-    (n) leader  d  g  t                 : Debug go test
+    (n) leader  b                       : Toggle debug breakpoint
+    (n) leader  B                       : Clear all breakpoints
+    (n) leader  D                       : Debug go test
     (n) F7                              : Step over
     (n) F8                              : Step into
     (n) F9                              : Step out
-    (n) F10                             : Continue
+    (n) F10                             : Continue (or start DAP)
 
