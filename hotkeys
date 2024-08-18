@@ -58,8 +58,8 @@ lsp.lua:
     (n) [  d                            : Diagnostics go to next
     (n) ]  d                            : Diagnostics go to prev
     (n) leader  v  c  a                 : Code action
-    (n) leader - v  r  r                : References
-    (n) leader - v  r  n                : Rename
+    (n) leader  v  r  r                 : References
+    (n) leader  v  r  n                 : Rename
     (i) Ctrl  h                         : Signature help
     
 go:
