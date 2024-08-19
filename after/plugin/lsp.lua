@@ -8,6 +8,7 @@ lsp.ensure_installed({
     'lua_ls',
     'rust_analyzer',
     'gopls',
+    'templ',
 })
 
 -- Fix Undefined global 'vim'
@@ -20,6 +21,7 @@ lsp.configure('lua_ls', {
         }
     }
 })
+
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -46,6 +48,8 @@ lsp.set_preferences({
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
+
+vim.filetype.add({ extension = { templ = "templ" } })
 
 lsp.on_attach(function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
