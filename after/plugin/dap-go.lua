@@ -5,28 +5,39 @@ local dapui = require('dapui')
 -- Setup dap-go
 dapgo.setup()
 
--- Configure nvim-dap to attach to Delve
-dap.adapters.go = {
-    type = 'server',
-    host = '127.0.0.1',
-    port = '2343',
-}
+-- Load project specific dap configurations
+local function load_project_dap_config()
+    local cwd = vim.fn.getcwd()
+    local dap_config_file = cwd .. '/.nvim/dap.lua'
+    if vim.fn.filereadable(dap_config_file) == 1 then
+        dofile(dap_config_file)
+    else
+        dap.adapters.go = {
+            type = 'server',
+            host = '127.0.0.1',
+            port = '2343',
+        }
 
-dap.configurations.go = {
-    {
-        type = "go",
-        name = "Devspace",
-        request = "attach",
-        mode = "remote",
-        substitutePath = {
+        dap.configurations.go = {
             {
-                from = "${workspaceFolder}",
-                to = "/workspace",
+                type = "go",
+                name = "Devspace",
+                request = "attach",
+                mode = "remote",
+                substitutePath = {
+                    {
+                        from = "${workspaceFolder}",
+                        to = "/workspace",
+                    },
+                },
+                showLog = true,
             },
-        },
-        showLog = true,
-    },
-}
+        }
+    end
+end
+
+load_project_dap_config()
+
 
 -- Setup nvim-dap-ui
 dapui.setup()
