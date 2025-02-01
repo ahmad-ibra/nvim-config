@@ -54,8 +54,8 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 -- Keybindings for nvim-dap
-vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpoint', { text = '⭕', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '👉', texthl = '', linehl = '', numhl = '' })
 
 
 vim.api.nvim_set_keymap('n', '<F7>', '<Cmd>lua require\'dap\'.step_over()<CR>', { noremap = true, silent = true })
