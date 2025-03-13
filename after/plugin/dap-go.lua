@@ -5,6 +5,13 @@ local dapui = require('dapui')
 -- Setup dap-go
 dapgo.setup()
 
+-- Function to explicitly show the DAP configuration picker
+local function select_dap_configuration()
+    vim.defer_fn(function()
+        require('dap').continue() -- Triggers the selection menu
+    end, 100)                     -- Small delay to ensure UI updates
+end
+
 -- Load project specific dap configurations
 local function load_project_dap_config()
     local cwd = vim.fn.getcwd()
@@ -52,6 +59,9 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
+
+-- Bind it to a command for easy manual triggering
+vim.api.nvim_create_user_command("Debug", select_dap_configuration, {})
 
 -- Keybindings for nvim-dap
 vim.fn.sign_define('DapBreakpoint', { text = '⭕', texthl = '', linehl = '', numhl = '' })
