@@ -2,66 +2,69 @@ local dap = require('dap')
 local dapgo = require('dap-go')
 local dapui = require('dapui')
 
--- Setup dap-go
+-- Setup dap-go and dap-ui
 dapgo.setup()
+dapui.setup()
 
--- Function to explicitly show the DAP configuration picker
-local function select_dap_configuration()
-    vim.defer_fn(function()
-        require('dap').continue() -- Triggers the selection menu
-    end, 100)                     -- Small delay to ensure UI updates
+-- Automatically open/close dap-ui when debugging starts/ends
+dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
+
+local function find_nearest_dap_config(start_dir)
+    local Path = vim.fn.fnamemodify
+    local uv = vim.loop
+    local dir = start_dir
+
+    while dir ~= "/" do
+        local dap_path = dir .. "/.nvim/dap.lua"
+        if vim.fn.filereadable(dap_path) == 1 then
+            return dap_path
+        end
+        dir = Path(dir, ":h")
+    end
+
+    return nil
 end
 
--- Load project specific dap configurations
+-- Load project-specific .nvim/dap.lua if it exists
 local function load_project_dap_config()
     local cwd = vim.fn.getcwd()
-    local dap_config_file = cwd .. '/.nvim/dap.lua'
-    if vim.fn.filereadable(dap_config_file) == 1 then
-        dofile(dap_config_file)
+    local dap_config_file = find_nearest_dap_config(cwd)
+    if dap_config_file then
+        local ok, err = pcall(dofile, dap_config_file)
+        if not ok then
+            vim.notify("Error loading " .. dap_config_file .. ":\n" .. err, vim.log.levels.ERROR)
+        end
     else
-        dap.adapters.go = {
-            type = 'server',
-            host = '127.0.0.1',
-            port = '2343',
-        }
-
-        dap.configurations.go = {
-            {
-                type = "go",
-                name = "Devspace",
-                request = "attach",
-                mode = "remote",
-                substitutePath = {
-                    {
-                        from = "${workspaceFolder}",
-                        to = "/workspace",
-                    },
-                },
-                showLog = true,
-            },
-        }
+        -- fallback adapter or config can go here
     end
 end
 
 load_project_dap_config()
 
+-- DAP configuration picker
+vim.api.nvim_create_user_command("Debug", function()
+    vim.defer_fn(function()
+        local configs = require('dap').configurations.go or {}
+        if vim.tbl_isempty(configs) then
+            vim.notify("No DAP configurations found for Go", vim.log.levels.WARN)
+            return
+        end
 
--- Setup nvim-dap-ui
-dapui.setup()
+        local names = vim.tbl_map(function(cfg) return cfg.name or "Unnamed config" end, configs)
 
--- Automatically open/close dap-ui when debugging starts/ends
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
-
--- Bind it to a command for easy manual triggering
-vim.api.nvim_create_user_command("Debug", select_dap_configuration, {})
+        vim.ui.select(names, { prompt = "Select DAP Configuration" }, function(choice)
+            if not choice then return end
+            for _, cfg in ipairs(configs) do
+                if cfg.name == choice then
+                    require('dap').run(cfg)
+                    break
+                end
+            end
+        end)
+    end, 100)
+end, {})
 
 -- Keybindings for nvim-dap
 vim.fn.sign_define('DapBreakpoint', { text = '⭕', texthl = '', linehl = '', numhl = '' })
