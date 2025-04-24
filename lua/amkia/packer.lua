@@ -28,6 +28,10 @@ return require('packer').startup(function(use)
     -- transparency
     use { 'tribela/vim-transparent' } -- ensure iterm2 transparency set to 10 and blur set to 15
 
+    -- fzf
+    use { 'ibhagwan/fzf-lua' }
+
+
     -- airline and bufferline
     use { "vim-airline/vim-airline" }
     use {

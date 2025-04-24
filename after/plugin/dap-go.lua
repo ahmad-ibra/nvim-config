@@ -1,10 +1,14 @@
 local dap = require('dap')
 local dapgo = require('dap-go')
 local dapui = require('dapui')
+local fzf = require('fzf-lua')
 
 -- Setup dap-go and dap-ui
 dapgo.setup()
 dapui.setup()
+
+-- Disable automatic loading of launch.json
+vim.g.dap_virtual_text = true
 
 -- Automatically open/close dap-ui when debugging starts/ends
 dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
@@ -13,7 +17,6 @@ dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
 
 local function find_nearest_dap_config(start_dir)
     local Path = vim.fn.fnamemodify
-    local uv = vim.loop
     local dir = start_dir
 
     while dir ~= "/" do
@@ -43,28 +46,38 @@ end
 
 load_project_dap_config()
 
--- DAP configuration picker
-vim.api.nvim_create_user_command("Debug", function()
-    vim.defer_fn(function()
-        local configs = require('dap').configurations.go or {}
-        if vim.tbl_isempty(configs) then
-            vim.notify("No DAP configurations found for Go", vim.log.levels.WARN)
-            return
-        end
+-- DAP configuration picker using fzf-lua
+local function select_config()
+    local configs = dap.configurations.go or {}
 
-        local names = vim.tbl_map(function(cfg) return cfg.name or "Unnamed config" end, configs)
+    -- Extract just the names of the configurations
+    local config_names = vim.tbl_map(function(config)
+        return config.name
+    end, configs)
 
-        vim.ui.select(names, { prompt = "Select DAP Configuration" }, function(choice)
-            if not choice then return end
-            for _, cfg in ipairs(configs) do
-                if cfg.name == choice then
-                    require('dap').run(cfg)
-                    break
+    fzf.fzf_exec(config_names, {
+        prompt = "Select DAP Config: ",
+        actions = {
+            ["default"] = function(selected)
+                local config_name = selected[1]
+                for _, config in ipairs(configs) do
+                    if config.name == config_name then
+                        dap.run(config)
+                        break
+                    end
                 end
-            end
-        end)
-    end, 100)
+            end,
+        },
+    })
+end
+
+-- Create a user command to select a config via fzf
+vim.api.nvim_create_user_command("SelectDAPConfig", function()
+    select_config()
 end, {})
+
+-- Map a key to select a config with fzf
+vim.api.nvim_set_keymap('n', '<leader>dc', ':SelectDAPConfig<CR>', { noremap = true, silent = true })
 
 -- Keybindings for nvim-dap
 vim.fn.sign_define('DapBreakpoint', { text = '⭕', texthl = '', linehl = '', numhl = '' })
