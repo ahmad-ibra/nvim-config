@@ -50,6 +50,9 @@ telescope.lua:
     (n) Ctrl  f                         : Find files in git directory
     (n) leader  f  s                    : Find string in directory
 
+noice.lua:
+    (n) leader  n  d                    : Dismiss noice message
+
 lsp.lua:
     (n) g  d                            : Go to definition
     (n) K                               : Hover
