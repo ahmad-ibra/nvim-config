@@ -1,54 +1,9 @@
+require("mason").setup()
+require("mason-lspconfig").setup({
+    automatic_installation = true,
+})
+
 local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-    'ts_ls',
-    'eslint',
-    'lua_ls',
-    'rust_analyzer',
-    'gopls',
-    'templ',
-})
-
--- Fix Undefined global 'vim'
-lsp.configure('lua_ls', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ["<C-Space>"] = cmp.mapping.complete(),
-})
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = '✘',
-        warn = '▲',
-        hint = '⚑',
-        info = ''
-    }
-})
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
-
-vim.filetype.add({ extension = { templ = "templ" } })
 
 lsp.on_attach(function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -65,11 +20,72 @@ lsp.on_attach(function(_, bufnr)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+            local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+            for _, client in pairs(clients) do
+                if client.supports_method("textDocument/formatting") then
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                    return
+                end
+            end
+        end,
+    })
 end)
 
-lsp.setup()
+vim.filetype.add({ extension = { templ = "templ" } })
+
+local cmp = require('cmp')
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+cmp.setup({
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+    },
+})
+
+lsp.set_preferences({
+    suggest_lsp_servers = false,
+    sign_icons = {
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = ''
+    }
+})
+
+local icons = {
+    [vim.diagnostic.severity.ERROR] = "✘",
+    [vim.diagnostic.severity.WARN]  = "▲",
+    [vim.diagnostic.severity.INFO]  = "",
+    [vim.diagnostic.severity.HINT]  = "⚑",
+}
 
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = {
+        prefix = function(diagnostic)
+            return icons[diagnostic.severity] or ""
+        end,
+        format = function(diagnostic)
+            return diagnostic.message
+        end,
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons[vim.diagnostic.severity.ERROR],
+            [vim.diagnostic.severity.WARN]  = icons[vim.diagnostic.severity.WARN],
+            [vim.diagnostic.severity.INFO]  = icons[vim.diagnostic.severity.INFO],
+            [vim.diagnostic.severity.HINT]  = icons[vim.diagnostic.severity.HINT],
+        }
+    },
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
 })

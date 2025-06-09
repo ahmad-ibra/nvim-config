@@ -57,9 +57,15 @@ return require('packer').startup(function(use)
     -- go helpful keymappings
     use('olexsmir/gopher.nvim') -- will need to manually run :GoInstallDeps to get this working
 
+    --use {
+    --    'williamboman/mason.nvim',
+    --    run = ":MasonUpdate" -- optional but useful
+    --}
+    --use 'williamboman/mason-lspconfig.nvim'
+
     use {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
+        branch = 'v3.x',
         requires = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },             -- Required
@@ -104,6 +110,17 @@ return require('packer').startup(function(use)
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
             "rcarriga/nvim-notify",
+        }
+    })
+
+    use({
+        "olimorris/codecompanion.nvim",
+        config = function()
+            require("codecompanion").setup()
+        end,
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
         }
     })
 end)
