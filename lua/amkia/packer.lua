@@ -39,7 +39,6 @@ return require('packer').startup(function(use)
         tag = "*",
         requires = 'nvim-tree/nvim-web-devicons',
         config = function() require("bufferline").setup {} end
-
     }
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -113,14 +112,59 @@ return require('packer').startup(function(use)
         }
     })
 
-    use({
-        "olimorris/codecompanion.nvim",
-        config = function()
-            require("codecompanion").setup()
-        end,
+    ---- Code Companion
+    --use { "stevearc/dressing.nvim" }
+    --use { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } }
+    --use {
+    --    "echasnovski/mini.diff",
+    --    config = function()
+    --        require("mini.diff").setup({
+    --            source = require("mini.diff").gen_source.none(),
+    --        })
+    --    end
+    --}
+    --use {
+    --    "HakonHarnes/img-clip.nvim",
+    --    opts = {
+    --        filetypes = {
+    --            codecompanion = {
+    --                prompt_for_file_name = false,
+    --                template = "[Image]($FILE_PATH)",
+    --                use_absolute_path = true,
+    --            },
+    --        },
+    --    }
+    --}
+    --use({
+    --    "olimorris/codecompanion.nvim",
+    --    config = function()
+    --        require("codecompanion").setup()
+    --    end,
+    --    requires = {
+    --        "nvim-lua/plenary.nvim",
+    --        "nvim-treesitter/nvim-treesitter",
+    --    }
+    --})
+
+    -- Avante
+    use {
+        'yetone/avante.nvim',
+        branch = 'main',
+        run = 'make',
         requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
+            -- required plugins
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-lua/plenary.nvim',
+            'MunifTanjim/nui.nvim',
+            'MeanderingProgrammer/render-markdown.nvim',
+
+            -- Optional dependencies
+            'hrsh7th/nvim-cmp',
+            'nvim-tree/nvim-web-devicons', -- or use 'echasnovski/mini.icons'
+            'HakonHarnes/img-clip.nvim',
+            'zbirenbaum/copilot.lua',
+            'stevearc/dressing.nvim', -- for enhanced input UI
+            'folke/snacks.nvim'       -- for modern input UI
         }
-    })
+    }
 end)
