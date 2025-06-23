@@ -2,10 +2,10 @@ require('snacks').setup()
 --require('dressing').setup()
 
 require("avante").setup({
-    provider = "copilot",                  -- Set Copilot as the default provider
-    auto_suggestions_provider = "copilot", -- Ensure auto-suggestions use Copilot
-    --provider = "openai",                  -- Set OpenAI as the default provider
-    --auto_suggestions_provider = "openai", -- Ensure auto-suggestions use OpenAI
+    provider = "openai",                  -- Set OpenAI as the default provider
+    auto_suggestions_provider = "openai", -- Ensure auto-suggestions use OpenAI
+    --provider = "copilot",                  -- Set Copilot as the default provider
+    --auto_suggestions_provider = "copilot", -- Ensure auto-suggestions use Copilot
     mode = "agentic",
     providers = {
         openai = {
