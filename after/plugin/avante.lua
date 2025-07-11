@@ -12,15 +12,15 @@ require("avante").setup({
             enabled = true,
             model = "gpt-4o",
         },
-        copilot = {
-            enabled = true,
-            model = "gpt-4o",
-        },
+        --copilot = {
+        --    enabled = true,
+        --    model = "gpt-4o",
+        --},
     },
     dual_boost = {
         enabled = false,
-        first_provider = "openai",   -- Use OpenAI as the first provider
-        second_provider = "copilot", -- Use Copilot as the second provider
+        first_provider = "openai", -- Use OpenAI as the first provider
+        --second_provider = "copilot", -- Use Copilot as the second provider
     },
     input = {
         provider = "snacks",
