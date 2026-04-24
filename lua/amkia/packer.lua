@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.3',
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
@@ -101,11 +101,6 @@ return require('packer').startup(function(use)
 
     use({
         "folke/noice.nvim",
-        config = function()
-            require("noice").setup({
-                -- add any options here
-            })
-        end,
         requires = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "MunifTanjim/nui.nvim",
@@ -149,26 +144,4 @@ return require('packer').startup(function(use)
     --        "nvim-treesitter/nvim-treesitter",
     --    }
     --})
-
-    -- Avante
-    use {
-        'yetone/avante.nvim',
-        branch = 'main',
-        run = 'make',
-        requires = {
-            -- required plugins
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-lua/plenary.nvim',
-            'MunifTanjim/nui.nvim',
-            'MeanderingProgrammer/render-markdown.nvim',
-
-            -- Optional dependencies
-            'hrsh7th/nvim-cmp',
-            'nvim-tree/nvim-web-devicons', -- or use 'echasnovski/mini.icons'
-            'HakonHarnes/img-clip.nvim',
-            'zbirenbaum/copilot.lua',
-            'stevearc/dressing.nvim', -- for enhanced input UI
-            'folke/snacks.nvim'       -- for modern input UI
-        }
-    }
 end)
