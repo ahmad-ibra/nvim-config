@@ -41,7 +41,11 @@ return require('packer').startup(function(use)
         config = function() require("bufferline").setup {} end
     }
 
-    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        branch = 'master',
+        run = ':TSUpdate',
+    }
     use('nvim-treesitter/playground')
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
