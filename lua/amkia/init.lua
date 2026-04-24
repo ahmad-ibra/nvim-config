@@ -6,8 +6,8 @@ require("amkia.remap")
 --vim.cmd([[colorscheme gruvbox]])
 --vim.cmd([[colorscheme gruvbox-material]])
 vim.cmd([[colorscheme everforest]])
---vim.cmd([[colorscheme kanagawa]]) -- use this
 --vim.cmd([[colorscheme bogster]])
+--vim.cmd([[colorscheme kanagawa]]) -- use this
 --vim.cmd([[colorscheme srcery]])
 --vim.cmd([[colorscheme papercolor]])
 --vim.cmd([[colorscheme deus]]) -- not bad
