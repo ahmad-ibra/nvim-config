@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        'nvim-telescope/telescope.nvim', tag = '0.2.2',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
@@ -43,10 +43,10 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-treesitter/nvim-treesitter',
-        branch = 'master',
+        branch = 'main',
         run = ':TSUpdate',
     }
-    use('nvim-treesitter/playground')
+    -- use('nvim-treesitter/playground') -- playground not compatible with nvim-treesitter main branch
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
