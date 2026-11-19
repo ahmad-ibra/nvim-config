@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.2.2',
+        'nvim-telescope/telescope.nvim', tag = 'v0.2.2',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
@@ -41,10 +41,11 @@ return require('packer').startup(function(use)
         config = function() require("bufferline").setup {} end
     }
 
+    -- nvim-treesitter's main branch removed :TSUpdate. Parsers are installed
+    -- through the plugin's own API in after/plugin/treesitter.lua.
     use {
         'nvim-treesitter/nvim-treesitter',
         branch = 'main',
-        run = ':TSUpdate',
     }
     -- use('nvim-treesitter/playground') -- playground not compatible with nvim-treesitter main branch
     use('theprimeagen/harpoon')
